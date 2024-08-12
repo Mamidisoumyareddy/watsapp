@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: aqua;
+            margin: 0;
+        }
+        .container{
+            height: 600px;
+            width: 400px;
+            border: 2px solid black;
+            background-image: url(https://ktastro.blob.core.windows.net/images/Celebrity/AlluArjun.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+
+        }
+        .header{
+            background-color: lightgreen;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .info{
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .calling{
+            position: absolute;
+            right: 0px;
+        }
+        .call{
+            height:45px ;
+            width: 45px;
+            padding:5px ;
+            border-radius:50% ;
+        }
+        .profile-pic{
+            height:45px ;
+            width:45px ;
+            border-radius:50% ;
+            margin-right:20px ;
+            margin-left: 10px;
+        }
+        .name{
+            font-size: 20px;
+        }
+        .chat{
+            padding: 5px;
+            display: flex;
+            overflow-y: scroll;
+            scrollbar-width:none ;
+            flex-grow: 1;
+            flex-direction: column;
+            border-radius: 10px;
+        }
+        .message{
+            border-radius: 10px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            font-size: 15px;
+            position: relative;
+            max-width: 88%;
+            min-width:48px ;
+
+        }
+        .sent{
+            background-color: red;
+            color: white;
+            align-self:flex-end;
+            padding: 10px;
+        }
+        .recieved{
+            background-color: rgba(255, 0, 0, 0.432);
+            color: white;
+            align-self: flex-start;
+            padding: 10px;
+        }
+       
+        .text{
+          position: relative;
+            margin-bottom: 20px;
+            display: block;
+             }  
+        .time{
+            font-size: 17px;
+            color: #888;
+            position: absolute;
+            bottom: 1px;
+            right: 8px;
+        }
+        .chattin,.vid{
+            height: fit-content;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+        .date{
+            background-color: lightgreen;
+            width: 50px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 10px;
+            align-self: center;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="info">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Allu_Arjun_at_69th_NFA.jpg" class="profile-pic">
+                <div class="name">Allu Arjun</div>
+                <div class="calling">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyU2htpcjJAf2LGuo4nxAwwj7Mzrzr1QeArA&s" class="call">
+                    <img src="data:image/png;base64,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" class="call">
+                </div>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="chat">
+               
+                <span class="date">16 June</span>
+
+                <div class="message sent">
+
+                    <span class="text">hii virat</span>
+                    <span class="time">9:00 pm</span>
+                </div>
+                <div class="message recievsed">
+                    <span class="text">hello</span>
+                </div>
+                
+            </div>
+            <div class="message sent">
+                <span class="text">lunch chesava</span>
+                <span class="time">1:00am</span>
+            </div>
+            <div class="message sent">
+                <span class="sent">exam ki prepare ayyava</span>
+                <span class="time">1:00am</span>
+            </div>
+            <div class="message recieved">
+                <span class="text">ha thinnanu,prepare ayyanu.</span>
+                <span class="time">1:10am</span>
+            </div>
+            
+            <div class="message sent">
+                <span class="text">all the best</span>
+                <span class="time">1:13am</span>
+            </div>
+            <div class="message recieved">
+                <span class="text">Thank you</span>
+                <span class="time">1:13am</span>
+            </div>
+            <span class="date">23 june</span>
+            <div class="message sent">
+                <span class="text">good morning</span>
+                <span class="time">8:00am</span>
+            </div>
+            
+            <div class="message recieved">
+                <span class="text">good morning</span>
+                <span class="time">8:10am</span>
+            </div>
+            <div class="message recieved">
+                <span class="text">tiffin chesava</span>
+                <span class="time">9:00am</span>
+            </div>
+            <div class="message sent">
+                <span class="text">haa thinna nuvvu</span>
+                <span class="time">9:10am</span>
+            </div>
+            <div class="message recieved">
+                <span class="text">Movie ki veldhama ee sunday</span>
+                <span class="time">9:20am</span>
+            </div>
+           
+            <div class="message sent">
+                <span class="text">ha sare veldham</span>
+                <span class="time">2:00am</span>
+            </div>
+            <span class="date">25 june</span>
+            <div class="message recieved">
+                <span class="text">hi</span>
+                <span class="time">9:00am</span>
+            </div>
+            <div class="message sent">
+                <span class="text">what are you doing</span>
+                <span class="time">2:00am</span>
+            </div>
+
+            <div class="message recieved">
+                <span class="text">hi</span>
+                <span class="time">9:00am</span>
+            </div>
+            <div class="message sent">
+                <span class="text">Movie chala bagundhi</span>
+                <span class="time">2:00pm</span>
+            </div>
+            <div class="message sent">
+                <span class="text">college ki velthunnava repu</span>
+                <span class="time">2:00pm</span>
+            </div>
+            <div class="message recieved">
+                <span class="text">ha avunu </span>
+                <span class="time">2:00pm</span>
+            </div>
+            <div class="message recieved">
+                <span class="text">ha velthunna </span>
+                <span class="time">2:00pm</span>
+            </div>
+            <div class="message sent">
+                <span class="text">bye</span>
+                <span class="time">2:00pm</span>
+            </div>
+            <div class="message recieved">
+                <span class="text">bye </span>
+                <span class="time">2:00pm</span>
+            </div>
+
+            <span class="date">today</span>
+            <div class="message recieved">
+                <span class="text">how is today</span>
+                <span class="time">8:00pm</span>
+            </div>
+            <div class="message sent">
+                <span class="text">good </span>
+                <span class="time">8:10pm</span>
+            </div>
+            <div class="message sent">
+                <span class="text">sare bye</span>
+                <span class="time">9:00pm</span>
+            </div>
+            <div class="message recieved">
+                <span class="text"> ha bye</span>
+                <span class="time">9:00pm</span>
+            </div>
+            <div class="message recieved">
+                <span class="text"> good night</span>
+                <span class="time">9:00pm</span>
+            </div>
+            <div class="message sent">
+                <span class="text">good night</span>
+                <span class="time">9:00pm</span>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
